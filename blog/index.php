@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $author = mysqli_real_escape_string($conn, $_POST['author']);
     $post = mysqli_real_escape_string($conn, $_POST['post']);
+    
 
 
     // echo $title . '<br>' . $author . '<br>' . $post;
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error['post'] = 'Please enter a post';
     } else {
         // echo 'successfully posted';
-        // echo $title . '<br>' . $author . '<br>' . $post
+        echo $title . '<br>' . $author . '<br>' . $post;
 
         // CREATE a post into the database
         $sql = "INSERT INTO post_table(title, author, post) VALUES('$title', '$author', '$post')";
@@ -80,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <?php include 'footer.php' ?>
+
 
 </body>
 </html>
