@@ -22,6 +22,26 @@
         }
     }
   
+
+
+    // Edit Blog implementation
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+        $title = mysqli_real_escape_string($conn, $_POST['title']);
+        $author = mysqli_real_escape_string($conn, $_POST['author']);
+        $post = mysqli_real_escape_string($conn, $_POST['post']);
+
+        $sql = "UPDATE post_table SET title = '$title', author = '$author', post = '$post' WHERE post_id = $id";
+        $result = mysqli_query($conn, $sql);
+        if ($result){
+            header('location: allPost.php');
+            exit;
+        }
+        else{
+            echo 'Error: '. mysqli_error($conn);
+        }
+    }
     
 ?>
 
@@ -56,29 +76,27 @@
                         <!--Edit  Modal -->
 
                         <div class="modal fade" id="exampleModalEdit_<?php echo $post['post_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <form action="index.php" method="POST">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                
-                                    <input type="text" class="form-control mb-2" placeholder="Title" name="title" value="<?php echo $post['title'] ?>" >
-                                    
-                                    <input type="text" class="form-control mb-2" placeholder="Author" name="author" value="<?php echo $post['author'] ?>">
-                                   
 
-                                    <textarea class="form-control mb-2" placeholder="Post" name="post"><?php echo $post['post'] ?></textarea>
+                        <form action="allPost.php" method="POST">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                
+                                <div class="modal-body">
+                                        <input type="text" hidden name="id" value="<?php echo $post['post_id'] ?>">
                                     
+                                        <input type="text" class="form-control mb-2" placeholder="Title" name="title" value="<?php echo $post['title'] ?>" >
+                                        
+                                        <input type="text" class="form-control mb-2" placeholder="Author" name="author" value="<?php echo $post['author'] ?>">
+                                    
+                                        <textarea class="form-control mb-2" placeholder="Post" name="post"><?php echo $post['post'] ?></textarea>
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                            </div>
-                        </div>
                         </form>
                         </div>
 
@@ -95,7 +113,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
