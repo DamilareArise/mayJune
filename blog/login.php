@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            // $hash_password =  $row['password'];
-            if (password_verify('$2y$10$LjhFk8hdfLoVQ', $row['password'])) {
+            $hash_password =  $row['password'];
+            if (password_verify($password, $hash_password)) {
                 echo $password;
             }
             else{
-                $errors['account'] = 'wrong password';
+                $errors['account'] = 'wrong email or password';
             }
             
         }else{
