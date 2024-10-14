@@ -1,5 +1,8 @@
 <?php
-
+    $email = '';
+    if(isset($_COOKIE['email'])){
+        $email = $_COOKIE['email'];
+    }
 ?>
 
 
@@ -16,8 +19,10 @@
         <div class="container-fluid">
             <a class="navbar-brand">Navbar</a>
             <form class="d-flex" role="search">
+                <a href="#" class="btn"><?php echo $email ?> </a>
                 <a href="./index.php" class="btn">Create Post</a>
                 <a href="./allPost.php" class="btn">allPost</a>
+                <a href="./logout.php" class="btn">Logout</a>
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>

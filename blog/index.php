@@ -1,6 +1,15 @@
 <?php
 
+session_start();
 include 'database.php';
+
+if($_SESSION['id']){
+ $id = $_SESSION['id'];
+}
+else{
+ header('location:login.php');
+ exit();
+}
 
 
 $error = [

@@ -1,5 +1,6 @@
 <?php 
 
+session_start();
 include 'database.php';
 
 $errors = [
@@ -30,8 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             $hash_password =  $row['password'];
+            $id = $row['id'];
             if (password_verify($password, $hash_password)) {
-                echo $password;
+                $_SESSION['id'] = $id;
+
+                // set cookie
+                setcookie('email', $row['email'], time() + 3600, '/');
+
+                header('location: allPost.php');
+                exit;
             }
             else{
                 $errors['account'] = 'wrong email or password';
